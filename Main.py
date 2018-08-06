@@ -1,8 +1,8 @@
 # --- Import Libraries
 import pygame
-import sys
 import random
 import Button_Library
+import re
 
 # --- Define global constants
 # Define some colors
@@ -22,7 +22,8 @@ SCREEN_HEIGHT = 720
 # --- Define classes
 
 # --- Define functions
-
+def split_line(line):
+    return re.findall('[A-Za-z]+(?:\'[A-Za-z]+)?',line)
 
 # --- MAIN PROGRAM
 # Initialise pygame
@@ -40,7 +41,18 @@ clock = pygame.time.Clock()
 
 # -------- Main Program -----------
 # Variables
-new_button = Button_Library.GameButton(100, 100, 200, 200, BLUE, "Help", False)
+new_button = Button_Library.GameButton(100, 100, 200, 200, BLUE, "Start", False)
+
+question_info = open("QuestionInfo.txt")
+line_number = 0
+
+for line in question_info:
+    words = split_line(line)
+    line_number += 1
+
+    for word in words:
+        i = 0
+
 
 while not done:
     # --- Main event loop
@@ -58,7 +70,6 @@ while not done:
 
     # --- Update the screen
     pygame.display.flip()
-
 
     # --- Set to 60 frames per second
     clock.tick(60)
