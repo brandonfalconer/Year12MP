@@ -2,7 +2,7 @@
 import pygame
 import sys
 import random
-import GameButton_Library
+import Button_Library
 
 # --- Define global constants
 # Define some colors
@@ -10,9 +10,9 @@ BLACK = (0, 0, 0)
 BLUE = (0, 0, 255)
 GREEN = (0, 255, 0)
 RED = (255, 0, 0)
-YELLOW = (255,255,0)
+YELLOW = (255, 255, 0)
 PURPLE = (255, 0, 255)
-CYAN = (0,255,255)
+CYAN = (0, 255, 255)
 WHITE = (255, 255, 255)
 
 # Screen dimensions
@@ -40,7 +40,7 @@ clock = pygame.time.Clock()
 
 # -------- Main Program -----------
 # Variables
-new_button = GameButton_Library.GameButton(100, 100, 200, 200, BLUE, "Help", False)
+new_button = Button_Library.GameButton(100, 100, 200, 200, BLUE, "Help", False)
 
 while not done:
     # --- Main event loop
@@ -54,14 +54,14 @@ while not done:
     screen.fill(WHITE)
 
     # --- Drawing code
-
     new_button.update()
+
     # --- Update the screen
     pygame.display.flip()
+
 
     # --- Set to 60 frames per second
     clock.tick(60)
 
 # Close the window and quit.
-
 pygame.quit()
