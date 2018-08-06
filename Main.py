@@ -52,6 +52,7 @@ for line in question_info:
 
     for word in words:
         i = 0
+        i = 1
 
 
 while not done:

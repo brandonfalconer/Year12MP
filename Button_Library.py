@@ -4,7 +4,7 @@ import pygame
 screen = pygame.display.set_mode([1280, 720])
 pygame.font.init()
 font = pygame.font.Font("Assets/Fonts/Tahoma.ttf", 30)
-
+i = 1
 
 class GameButton:
 
