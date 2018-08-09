@@ -6,6 +6,7 @@ pygame.font.init()
 font = pygame.font.Font("Assets/Fonts/Tahoma.ttf", 30)
 
 
+# Simple class that draws a clickable button, with text
 class GameButton:
     def __init__(self, x, y, width, height, colour, text, pressed):
         self.x = x

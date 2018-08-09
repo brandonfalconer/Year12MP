@@ -1,8 +1,7 @@
 # --- Import Libraries
 import pygame
-import random
-import ButtonLibrary
 import re
+import GameStateManager
 
 # --- Define global constants
 # Define some colors
@@ -18,11 +17,6 @@ WHITE = (255, 255, 255)
 # Screen dimensions
 SCREEN_WIDTH = 1280
 SCREEN_HEIGHT = 720
-
-# --- Define classes
-#class GameState:
-    #def __init__(self, state):
-        #self.state = state
 
 # --- Define functions
 def split_line(line):
@@ -44,12 +38,12 @@ clock = pygame.time.Clock()
 
 # -------- Main Program -----------
 # Variables
+GSM = GameStateManager.GameState(0)
+
 question_info = open("QuestionInfo.txt")
 line_number = 0
 
 buttons = []
-start_button = ButtonLibrary.GameButton(100, 100, 200, 200, BLUE, "Start", False)
-buttons.append(start_button)
 
 for line in question_info:
     words = split_line(line)
@@ -65,7 +59,7 @@ while not done:
         if event.type == pygame.QUIT:
             done = True
 
-        if event.type == pygame.MOUSEBUTTONUP:
+        if event.type == pygame.MOUSEBUTTONDOWN:
             if event.button == 1:
                 mouse_x = pygame.mouse.get_pos()[0]
                 mouse_y = pygame.mouse.get_pos()[1]
@@ -74,14 +68,13 @@ while not done:
                         button.pressed = True
 
     # --- Game logic
-    #if start_button.pressed:
-
+    # if start_button.pressed:
 
     # --- Screen-clearing
     screen.fill(WHITE)
 
     # --- Drawing code
-    start_button.draw()
+    GSM.render()
 
     # --- Update the screen
     pygame.display.flip()
