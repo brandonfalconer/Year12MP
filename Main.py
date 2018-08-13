@@ -2,6 +2,7 @@
 import pygame
 import re
 import GameStateManager
+import ButtonLibrary
 
 # --- Define global constants
 # Define some colors
@@ -38,12 +39,10 @@ clock = pygame.time.Clock()
 
 # -------- Main Program -----------
 # Variables
-GSM = GameStateManager.GameState(0)
+GSM = GameStateManager.GameStateManager(0)
 
 question_info = open("QuestionInfo.txt")
 line_number = 0
-
-buttons = []
 
 for line in question_info:
     words = split_line(line)
@@ -63,12 +62,12 @@ while not done:
             if event.button == 1:
                 mouse_x = pygame.mouse.get_pos()[0]
                 mouse_y = pygame.mouse.get_pos()[1]
-                for button in buttons:
+                for button in ButtonLibrary.buttons:
                     if (mouse_x > button.x and mouse_x < button.x + button.width) and (mouse_y > button.y and mouse_y < button.y + button.height):
                         button.pressed = True
 
+    GSM.input()
     # --- Game logic
-    # if start_button.pressed:
 
     # --- Screen-clearing
     screen.fill(WHITE)

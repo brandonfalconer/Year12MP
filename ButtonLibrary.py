@@ -1,9 +1,6 @@
 import pygame
 
-# Variables
-screen = pygame.display.set_mode([1280, 720])
-pygame.font.init()
-font = pygame.font.Font("Assets/Fonts/Tahoma.ttf", 30)
+buttons = []
 
 
 # Simple class that draws a clickable button, with text
@@ -16,11 +13,15 @@ class GameButton:
         self.colour = colour
         self.text = text
         self.pressed = pressed
+        self.screen = pygame.display.set_mode([1280, 720])
+
+        pygame.font.init()
+        self.font = pygame.font.Font("Assets/Fonts/Tahoma.ttf", 30)
 
     def draw(self):
         # Drawing a rectangle
-        pygame.draw.rect(screen, self.colour, (self.x, self.y, self.width, self.height))
+        pygame.draw.rect(self.screen, self.colour, (self.x, self.y, self.width, self.height))
 
         # Drawing Text
-        text = font.render(self.text, True, (0, 0, 0))
-        screen.blit(text, (self.x + 50, (self.y + self.height / 2 - 10)))
+        text = self.font.render(self.text, True, (0, 0, 0))
+        self.screen.blit(text, (self.x + 50, (self.y + self.height / 2 - 10)))
