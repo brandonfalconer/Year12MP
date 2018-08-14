@@ -5,17 +5,13 @@ from GameState import GameState
 
 class Menu(GameState):
     def __init__(self):
-        from Main import SCREEN_HEIGHT, SCREEN_WIDTH
         super().__init__()
 
-        #pygame.font.init()
-        #self.font = pygame.font.Font("Assets/Fonts/Tahoma.ttf", 64)
-
-        self.start_button = ButtonLibrary.GameButton(200, 600, 200, 100, self.YELLOW, "Start", False)
+        self.start_button = ButtonLibrary.GameButton(200, 600, 200, 100, self.YELLOW, "Start")
         ButtonLibrary.buttons.append(self.start_button)
-        self.rules_button = ButtonLibrary.GameButton(500, 600, 200, 100, self.YELLOW, "Rules", False)
+        self.rules_button = ButtonLibrary.GameButton(500, 600, 200, 100, self.YELLOW, "Rules")
         ButtonLibrary.buttons.append(self.rules_button)
-        self.exit_button = ButtonLibrary.GameButton(800, 600, 200, 100, self.YELLOW, "Exit", False)
+        self.exit_button = ButtonLibrary.GameButton(800, 600, 200, 100, self.YELLOW, "Exit")
         ButtonLibrary.buttons.append(self.exit_button)
 
     def render(self):
@@ -36,8 +32,8 @@ class Menu(GameState):
             pygame.quit()
 
         # Drawing Text
-        text = self.AssetLoader.regular_font.render("Who wants to be a Millionaire?", True, (0, 0, 0))
-        screen.blit(text, (300, 800))
+        text = self.AssetLoader.large_font.render("Who wants to be a Millionaire?", True, (0, 0, 0))
+        screen.blit(text, (300, 300))
 
     def input(self):
         from Main import event

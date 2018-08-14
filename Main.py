@@ -43,6 +43,7 @@ for line in question_info:
         i = 1
 
 while not done:
+    from ButtonLibrary import buttons
     # --- Main event loop
     # Gather user input
     for event in pygame.event.get():
@@ -57,6 +58,17 @@ while not done:
 
     # --- Draw/Update current state
     GSM.render()
+
+    # Highlight if the cursor is hovering over the button
+    mouse_x = pygame.mouse.get_pos()[0]
+    mouse_y = pygame.mouse.get_pos()[1]
+
+    for button in buttons:
+        if (button.x < mouse_x < button.x + button.width) and (
+                button.y < mouse_y < button.y + button.height):
+            button.cursor = True
+        else:
+            button.cursor = False
 
     # --- Update the screen
     pygame.display.flip()
