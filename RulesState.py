@@ -1,4 +1,4 @@
-import GameState
+from GameState import GameState
 import ButtonLibrary
 
 
@@ -7,8 +7,8 @@ class Rules(GameState):
         super().__init__()
 
     def render(self):
-        i = 1
-        print(i)
+        from Main import screen
+        screen.fill(self.BLUE)
 
     def input(self):
         pass

@@ -16,7 +16,7 @@ class GameButton:
         self.screen = pygame.display.set_mode([1280, 720])
 
         pygame.font.init()
-        self.font = pygame.font.Font("Assets/Fonts/Tahoma.ttf", 30)
+        self.font = pygame.font.Font("Assets/Fonts/Tahoma.ttf", 36)
 
     def draw(self):
         # Drawing a rectangle
