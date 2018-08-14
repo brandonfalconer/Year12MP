@@ -2,16 +2,17 @@
 import pygame
 import re
 import GameStateManager
-import ButtonLibrary
 
 # --- Define global constants
 # Screen dimensions
 SCREEN_WIDTH = 1280
 SCREEN_HEIGHT = 720
 
+
 # --- Define functions
 def split_line(line):
     return re.findall('[A-Za-z]+(?:\'[A-Za-z]+)?',line)
+
 
 # --- MAIN PROGRAM
 # Initialise pygame
@@ -45,28 +46,16 @@ while not done:
     # --- Main event loop
     # Gather user input
     for event in pygame.event.get():
+        # User input from current state
         GSM.input()
 
         if event.type == pygame.QUIT:
             done = True
 
-        """
-        if event.type == pygame.MOUSEBUTTONDOWN:
-            if event.button == 1:
-                mouse_x = pygame.mouse.get_pos()[0]
-                mouse_y = pygame.mouse.get_pos()[1]
-                for button in ButtonLibrary.buttons:
-                    if (mouse_x > button.x and mouse_x < button.x + button.width) and (mouse_y > button.y and mouse_y < button.y + button.height):
-                        button.pressed = True
-        """
-
-
-    # --- Game logic
-
     # --- Screen-clearing
     screen.fill((255, 255, 255))
 
-    # --- Drawing code
+    # --- Draw/Update current state
     GSM.render()
 
     # --- Update the screen

@@ -8,8 +8,8 @@ class Menu(GameState):
         from Main import SCREEN_HEIGHT, SCREEN_WIDTH
         super().__init__()
 
-        pygame.font.init()
-        self.font = pygame.font.Font("Assets/Fonts/Tahoma.ttf", 64)
+        #pygame.font.init()
+        #self.font = pygame.font.Font("Assets/Fonts/Tahoma.ttf", 64)
 
         self.start_button = ButtonLibrary.GameButton(200, 600, 200, 100, self.YELLOW, "Start", False)
         ButtonLibrary.buttons.append(self.start_button)
@@ -21,12 +21,13 @@ class Menu(GameState):
     def render(self):
         from Main import GSM, screen
         screen.fill(self.BLUE)
+
         self.start_button.draw()
         self.rules_button.draw()
         self.exit_button.draw()
 
         if self.start_button.pressed:
-            GSM.game_state = 1
+            GSM.game_state = 2
 
         if self.rules_button.pressed:
             GSM.game_state = 1
@@ -35,18 +36,20 @@ class Menu(GameState):
             pygame.quit()
 
         # Drawing Text
-        text = self.font.render("Who wants to be a Millionaire?", True, (0, 0, 0))
+        text = self.AssetLoader.regular_font.render("Who wants to be a Millionaire?", True, (0, 0, 0))
         screen.blit(text, (300, 800))
 
     def input(self):
         from Main import event
+
         if event.type == pygame.MOUSEBUTTONDOWN:
             if event.button == 1:
                 mouse_x = pygame.mouse.get_pos()[0]
                 mouse_y = pygame.mouse.get_pos()[1]
                 print("click")
+
                 for button in ButtonLibrary.buttons:
-                    if (mouse_x > button.x and mouse_x < button.x + button.width) and (
-                            mouse_y > button.y and mouse_y < button.y + button.height):
+                    if (button.x < mouse_x < button.x + button.width) and (
+                            button.y < mouse_y < button.y + button.height):
                         button.pressed = True
                         print("pressed")

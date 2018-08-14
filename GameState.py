@@ -1,7 +1,10 @@
+import AssetLoaderLibrary
 
 
 class GameState:
     def __init__(self):
+        self.AssetLoader = AssetLoaderLibrary.AssetLoader()
+
         # Define some colors
         self.BLUE = (0, 0, 255)
         self.BLACK = (0, 0, 0)
