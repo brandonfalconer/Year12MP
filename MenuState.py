@@ -6,21 +6,29 @@ from GameState import GameState
 class Menu(GameState):
     def __init__(self):
         super().__init__()
+        
+        game_button = ButtonLibrary.GameButton
 
-        self.start_button = ButtonLibrary.GameButton(200, 600, 200, 100, self.YELLOW, "Start")
+        self.start_button = game_button(240, 400, 200, 100, self.YELLOW, "Start")
         ButtonLibrary.buttons.append(self.start_button)
-        self.rules_button = ButtonLibrary.GameButton(500, 600, 200, 100, self.YELLOW, "Rules")
+        self.rules_button = game_button(540, 400, 200, 100, self.YELLOW, "Rules")
         ButtonLibrary.buttons.append(self.rules_button)
-        self.exit_button = ButtonLibrary.GameButton(800, 600, 200, 100, self.YELLOW, "Exit")
+        self.exit_button = game_button(840, 400, 200, 100, self.YELLOW, "Exit")
         ButtonLibrary.buttons.append(self.exit_button)
 
     def render(self):
         from Main import GSM, screen
-        screen.fill(self.BLUE)
 
-        self.start_button.draw()
-        self.rules_button.draw()
-        self.exit_button.draw()
+        # Draw Background
+        screen.fill(self.BLUE)
+        screen.blit(self.AssetLoader.background, self.AssetLoader.background_rect)
+
+        # Draw and update buttons
+        self.start_button.draw(screen)
+        self.rules_button.draw(screen)
+        self.exit_button.draw(screen)
+
+        ButtonLibrary.GameButton.DrawRoundRect(self.start_button, screen, self.YELLOW, pygame.Rect(100, 100, 200, 100), 0, 32, 32)
 
         if self.start_button.pressed:
             GSM.game_state = 2
@@ -32,8 +40,10 @@ class Menu(GameState):
             pygame.quit()
 
         # Drawing Text
-        text = self.AssetLoader.large_font.render("Who wants to be a Millionaire?", True, (0, 0, 0))
-        screen.blit(text, (300, 300))
+        text = self.AssetLoader.large_font.render("Who wants to be a", True, (255, 255, 255))
+        screen.blit(text, (390, 100))
+        text_newline = self.AssetLoader.large_font.render("Millionaire?", True, (255, 255, 255))
+        screen.blit(text_newline, (490, 200))
 
     def input(self):
         from Main import event
