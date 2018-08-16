@@ -9,11 +9,11 @@ class Menu(GameState):
         
         game_button = ButtonLibrary.GameButton
 
-        self.start_button = game_button(240, 400, 200, 100, self.YELLOW, "Start")
+        self.start_button = game_button(240, 400, 200, 100)
         ButtonLibrary.buttons.append(self.start_button)
-        self.rules_button = game_button(540, 400, 200, 100, self.YELLOW, "Rules")
+        self.rules_button = game_button(540, 400, 200, 100)
         ButtonLibrary.buttons.append(self.rules_button)
-        self.exit_button = game_button(840, 400, 200, 100, self.YELLOW, "Exit")
+        self.exit_button = game_button(840, 400, 200, 100)
         ButtonLibrary.buttons.append(self.exit_button)
 
     def render(self):
@@ -24,11 +24,9 @@ class Menu(GameState):
         screen.blit(self.AssetLoader.background, self.AssetLoader.background_rect)
 
         # Draw and update buttons
-        self.start_button.draw(screen)
-        self.rules_button.draw(screen)
-        self.exit_button.draw(screen)
-
-        ButtonLibrary.GameButton.DrawRoundRect(self.start_button, screen, self.YELLOW, pygame.Rect(100, 100, 200, 100), 0, 32, 32)
+        self.start_button.draw(screen, self.YELLOW, "Start", 0, 32, 32)
+        self.rules_button.draw(screen, self.YELLOW, "Rules", 0, 32, 32)
+        self.exit_button.draw(screen, self.YELLOW, "Exit", 0, 32, 32)
 
         if self.start_button.pressed:
             GSM.game_state = 2
@@ -41,9 +39,9 @@ class Menu(GameState):
 
         # Drawing Text
         text = self.AssetLoader.large_font.render("Who wants to be a", True, (255, 255, 255))
-        screen.blit(text, (390, 100))
+        screen.blit(text, (350, 100))
         text_newline = self.AssetLoader.large_font.render("Millionaire?", True, (255, 255, 255))
-        screen.blit(text_newline, (490, 200))
+        screen.blit(text_newline, (450, 200))
 
     def input(self):
         from Main import event
