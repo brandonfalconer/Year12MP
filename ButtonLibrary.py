@@ -3,7 +3,7 @@ import pygame
 buttons = []
 
 
-# Simple class that draws a clickable button, with text
+# Simple class that draws a clickable rounded rectangle button, with text
 class GameButton:
     def __init__(self, x, y, width, height):
         self.x = x

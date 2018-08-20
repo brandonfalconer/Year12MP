@@ -17,6 +17,8 @@ class GameStateManager:
             self.rules.render()
         elif self.game_state == 2:
             self.play.render()
+        else:
+            pass
 
     def input(self):
         if self.game_state == 0:
@@ -25,3 +27,5 @@ class GameStateManager:
             self.rules.input()
         elif self.game_state == 2:
             self.play.input()
+        else:
+            pass

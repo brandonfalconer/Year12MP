@@ -30,9 +30,11 @@ class Menu(GameState):
 
         if self.start_button.pressed:
             GSM.game_state = 2
+            GSM.start.__init__()
 
         if self.rules_button.pressed:
             GSM.game_state = 1
+            GSM.rules.__init__()
 
         if self.exit_button.pressed:
             pygame.quit()
@@ -50,10 +52,10 @@ class Menu(GameState):
             if event.button == 1:
                 mouse_x = pygame.mouse.get_pos()[0]
                 mouse_y = pygame.mouse.get_pos()[1]
-                print("click")
 
                 for button in ButtonLibrary.buttons:
                     if (button.x < mouse_x < button.x + button.width) and (
                             button.y < mouse_y < button.y + button.height):
                         button.pressed = True
-                        print("pressed")
+                    else:
+                        button.pressed = False
