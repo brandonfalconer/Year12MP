@@ -10,7 +10,12 @@ class Play(GameState):
         self.screen = screen
 
     def render(self):
-        self.screen.fill(self.BLUE)
+        from Main import screen
+
+        # Draw Background
+        screen.blit(self.AssetLoader.background, self.AssetLoader.background_rect)
+
+        screen.blit(self.AssetLoader.logo, (300, 100, 100, 300))
 
     def input(self):
         pass

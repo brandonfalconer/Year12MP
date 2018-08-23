@@ -18,7 +18,7 @@ class GameButton:
         pygame.font.init()
         self.font = pygame.font.Font("Assets/Fonts/Tahoma.ttf", 36)
 
-    def draw(self, screen, colour, text, r_width, xr, yr):
+    def rounded_rectangle(self, screen, colour, text, r_width, xr, yr):
 
         # Highlight
         if self.cursor and colour == (230, 230, 0):
