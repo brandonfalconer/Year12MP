@@ -6,9 +6,8 @@ class GameState:
         self.AssetLoader = AssetLoaderLibrary.AssetLoader()
 
         # Define some colors
-        self.BLUE = (0, 0, 255)
         self.BLACK = (0, 0, 0)
-        self.BLUE = (0, 0, 255)
+        self.BLUE = (0, 0, 205)
         self.GREEN = (0, 255, 0)
         self.RED = (255, 0, 0)
         self.YELLOW = (230, 230, 0)

@@ -1,1 +1,18 @@
-In computer jargon, 'apps' is short for what?, Appointments, Appetisers, Applications, Appendages, percentage
+In computer jargon, 'apps' is short for what?
+Appointments
+Appetisers
+Applications
+Appendages
+70
+The lossy file format which is used to compress an image for the internet is known as:
+Wav
+Gif
+Bmp
+Jpeg
+65
+Which type of data requires most storage:
+Animation
+Video
+Audio
+Graphics
+45

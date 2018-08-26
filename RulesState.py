@@ -17,7 +17,7 @@ class Rules(GameState):
         # Draw Background
         screen.blit(self.AssetLoader.background, self.AssetLoader.background_rect)
 
-        self.back_button.rounded_rectangle(screen, self.YELLOW, "Back", 0, 32, 32)
+        self.back_button.rounded_rectangle(screen, self.YELLOW, "Back", self.BLACK, 0, 32, 32)
 
         if self.back_button.pressed:
             GSM.game_state = 0
@@ -28,7 +28,7 @@ class Rules(GameState):
         screen.blit(text, (450, 30))
 
         text = [" In the game 'Who Wants to be a",
-                " Millionare?' the user must answer up to",
+                " Millionaire?' the user must answer up to",
                 " fifteen general knowledge questions split",
                 " into three categories (easy; medium; hard)",
                 " with each correctly answered question",
@@ -88,16 +88,5 @@ class Rules(GameState):
             screen.blit(text, (750, y))
 
     def input(self):
-        from Main import event
-
-        if event.type == pygame.MOUSEBUTTONDOWN:
-            if event.button == 1:
-                mouse_x = pygame.mouse.get_pos()[0]
-                mouse_y = pygame.mouse.get_pos()[1]
-
-                for button in ButtonLibrary.buttons:
-                    if (button.x < mouse_x < button.x + button.width) and (
-                            button.y < mouse_y < button.y + button.height):
-                        button.pressed = True
-                    else:
-                        button.pressed = False
+        gameButton = ButtonLibrary.GameButton(0, 0, 0, 0)
+        gameButton.update_mouse()
