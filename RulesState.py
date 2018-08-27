@@ -24,8 +24,8 @@ class Rules(GameState):
             GSM.menu.__init__()
 
         # Draw text
-        text = self.AssetLoader.large_font.render("How to Play", True, (255, 255, 255))
-        screen.blit(text, (450, 30))
+        text = self.AssetLoader.large_font.render("How to Play", True, self.WHITE)
+        screen.blit(text, (400, 30))
 
         text = [" In the game 'Who Wants to be a",
                 " Millionaire?' the user must answer up to",
@@ -44,7 +44,7 @@ class Rules(GameState):
         y = 155
         for line in text:
             y += 30
-            text = self.AssetLoader.small_font.render(line, True, (255, 255, 255))
+            text = self.AssetLoader.small_font.render(line, True, self.WHITE)
             screen.blit(text, (100, y))
 
         # Friend Lifeline
@@ -58,7 +58,7 @@ class Rules(GameState):
         y = 180
         for line in text:
             y += 30
-            text = self.AssetLoader.small_font.render(line, True, (255, 255, 255))
+            text = self.AssetLoader.small_font.render(line, True, self.WHITE)
             screen.blit(text, (750, y))
 
         text = self.AssetLoader.regular_font.render("Ask the Studio Audience", True, (255, 255, 0))
@@ -71,7 +71,7 @@ class Rules(GameState):
         y = 330
         for line in text:
             y += 30
-            text = self.AssetLoader.small_font.render(line, True, (255, 255, 255))
+            text = self.AssetLoader.small_font.render(line, True, self.WHITE)
             screen.blit(text, (750, y))
 
         text = self.AssetLoader.regular_font.render("50:50", True, (255, 255, 0))
@@ -84,9 +84,9 @@ class Rules(GameState):
         y = 480
         for line in text:
             y += 30
-            text = self.AssetLoader.small_font.render(line, True, (255, 255, 255))
+            text = self.AssetLoader.small_font.render(line, True, self.WHITE)
             screen.blit(text, (750, y))
 
     def input(self):
-        gameButton = ButtonLibrary.GameButton(0, 0, 0, 0)
-        gameButton.update_mouse()
+        game_button = ButtonLibrary.GameButton(0, 0, 0, 0)
+        game_button.update_mouse()

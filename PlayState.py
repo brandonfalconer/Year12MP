@@ -11,6 +11,7 @@ class Play(GameState):
         self.screen = screen
         self.question = True
         self.finished = False
+        self.stage = 1
         self.data = []
 
         game_button = ButtonLibrary.GameButton
@@ -19,7 +20,7 @@ class Play(GameState):
         self.answer_two_button = game_button(660, 450, 420, 80)
         self.answer_three_button = game_button(200, 550, 420, 80)
         self.answer_four_button = game_button(660, 550, 420, 80)
-        self.back_button = game_button(64, 64, 64, 64)
+        self.back_button = game_button(64, 64, 48, 48)
         ButtonLibrary.buttons.extend((self.question_button, self.answer_one_button, self.answer_two_button,
                                       self.answer_three_button, self.answer_four_button, self.back_button))
 
@@ -30,11 +31,12 @@ class Play(GameState):
             with open('QuestionInfo.txt', 'r') as f:
                 question_data = [line.strip() for line in f]
 
-            random_question = random.randint(0, 1) * 6
+            random_question = random.randint(0, 1) * 7
 
             current_question_data = [question_data[random_question], question_data[random_question + 1],
                                      question_data[random_question + 2], question_data[random_question + 3],
-                                     question_data[random_question + 4], question_data[random_question + 5]]
+                                     question_data[random_question + 4], question_data[random_question + 5],
+                                     question_data[random_question + 6]]
 
             return current_question_data
 
@@ -44,15 +46,13 @@ class Play(GameState):
         if not self.finished:
             # Draw Millionaire Logo
             screen.blit(self.AssetLoader.logo, (400, 50, 100, 300))
+            answer = 0
 
             # Current State
             if self.question:
                 self.data = new_question()
+                answer = self.data[5]
                 self.question = False
-
-            if self.back_button.pressed:
-                GSM.game_state = 0
-                GSM.menu.__init__()
 
             # Draw and update buttons
             self.question_button.rounded_rectangle(screen, (0, 0, 204), ""+self.data[0], self.WHITE, 0, 16, 16)
@@ -61,7 +61,33 @@ class Play(GameState):
             self.answer_three_button.rounded_rectangle(screen, self.BLUE, "" + self.data[3], self.WHITE, 0, 16, 16)
             self.answer_four_button.rounded_rectangle(screen, self.BLUE, "" + self.data[4], self.WHITE, 0, 16, 16)
 
-            self.back_button.circle(screen, self.BLUE, "Finish", self.WHITE, 48, 0)
+            if self.answer_one_button.pressed:
+                if answer == 1:
+                    self.stage += 1
+                else:
+                    self.finished = True
+            elif self.answer_one_button.pressed:
+                if answer == 2:
+                    self.stage += 1
+                else:
+                    self.finished = True
+            elif self.answer_one_button.pressed:
+                if answer == 3:
+                    self.stage += 1
+                else:
+                    self.finished = True
+            elif self.answer_one_button.pressed:
+                if answer == 4:
+                    self.stage += 1
+                else:
+                    self.finished = True
+
+            # Render and update the back button
+            self.back_button.circle(screen, self.BLUE, "Finish", self.WHITE)
+
+            if self.back_button.pressed:
+                GSM.game_state = 0
+                GSM.menu.__init__()
 
         else:
             GSM.game_state = 3

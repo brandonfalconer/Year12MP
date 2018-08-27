@@ -61,7 +61,7 @@ class GameButton:
         text = self.font.render(text, True, t_colour)
         screen.blit(text, (self.x + 60, (self.y + self.height / 2 - 25)))
 
-    def circle(self, screen, colour, text, t_colour, radius, width):
+    def circle(self, screen, colour, text, t_colour):
 
         # Drawing a circle button
         if self.cursor and colour == (230, 230, 0):
@@ -71,10 +71,10 @@ class GameButton:
         else:
             new_colour = colour
 
-        pygame.draw.circle(screen, new_colour, (self.x, self.y), radius, width)
+        pygame.draw.circle(screen, new_colour, (self.x, self.y), self.height, 0)
 
         text = self.font.render(text, True, t_colour)
-        screen.blit(text, ((self.x / 2) - 5, (self.y + self.height / 2 - 25)))
+        screen.blit(text, ((self.x / 2) - 10, (self.y + self.height / 2 - 45)))
 
     def update_mouse(self):
         from Main import event

@@ -3,16 +3,19 @@ Appointments
 Appetisers
 Applications
 Appendages
+3
 70
 The lossy file format which is used to compress an image for the internet is known as:
 Wav
 Gif
 Bmp
 Jpeg
+4
 65
 Which type of data requires most storage:
 Animation
 Video
 Audio
 Graphics
+2
 45
