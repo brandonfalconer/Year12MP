@@ -61,7 +61,7 @@ class GameButton:
         text = self.font.render(text, True, t_colour)
         screen.blit(text, (self.x + 60, (self.y + self.height / 2 - 25)))
 
-    def circle(self, screen, colour, text, t_colour, radius, width):
+    def circle(self, screen, colour, text, t_colour):
 
         # Drawing a circle button
         if self.cursor and colour == (230, 230, 0):
@@ -71,10 +71,10 @@ class GameButton:
         else:
             new_colour = colour
 
-        pygame.draw.circle(screen, new_colour, (self.x, self.y), radius, width)
+        pygame.draw.circle(screen, new_colour, (self.x, self.y), self.height, self.width)
 
         text = self.font.render(text, True, t_colour)
-        screen.blit(text, ((self.x / 2) - 5, (self.y + self.height / 2 - 25)))
+        screen.blit(text, ((self.x / 2) - 10, (self.y + self.height / 2)))
 
     def update_mouse(self):
         from Main import event
@@ -85,19 +85,13 @@ class GameButton:
 
         for button in buttons:
             if (button.x < mouse_x < button.x + button.width) and (
-                    button.y < mouse_y < button.y + button.height):
+                        button.y < mouse_y < button.y + button.height):
                 button.cursor = True
-            else:
-                button.cursor = False
 
-        if event.type == pygame.MOUSEBUTTONDOWN:
-            if event.button == 1:
-                mouse_x = pygame.mouse.get_pos()[0]
-                mouse_y = pygame.mouse.get_pos()[1]
-
-                for button in buttons:
-                    if (button.x < mouse_x < button.x + button.width) and (
-                            button.y < mouse_y < button.y + button.height):
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    if event.button == 1:
                         button.pressed = True
                     else:
                         button.pressed = False
+            else:
+                button.cursor = False

@@ -1,6 +1,7 @@
 import MenuState
 import RulesState
 import PlayState
+import FinishState
 
 
 class GameStateManager:
@@ -9,6 +10,7 @@ class GameStateManager:
         self.menu = MenuState.Menu()
         self.rules = RulesState.Rules()
         self.play = PlayState.Play()
+        self.finish = FinishState.Finish()
 
     def render(self):
         if self.game_state == 0:
@@ -17,6 +19,8 @@ class GameStateManager:
             self.rules.render()
         elif self.game_state == 2:
             self.play.render()
+        elif self.game_state == 3:
+            self.finish.render()
         else:
             pass
 
@@ -27,5 +31,7 @@ class GameStateManager:
             self.rules.input()
         elif self.game_state == 2:
             self.play.input()
+        elif self.game_state == 3:
+            self.finish.input()
         else:
             pass
