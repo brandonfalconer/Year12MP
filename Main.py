@@ -24,6 +24,7 @@ clock = pygame.time.Clock()
 # -------- Main Program -----------
 # Objects
 GSM = GameStateManager.GameStateManager(0)
+stage = 0
 
 while not done:
     # --- Main event loop
