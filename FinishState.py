@@ -12,6 +12,7 @@ class Finish(GameState):
 
     def render(self):
         from Main import screen, GSM, stage
+        import Main
 
         # Draw Background
         screen.blit(self.AssetLoader.background, self.AssetLoader.background_rect)
@@ -20,7 +21,7 @@ class Finish(GameState):
         reward = [0, 100, 200, 300, 400, 500, 1000, 2000, 4000, 8000, 26000, 32000, 64000, 125000, 250000, 500000,
                   1000000]
 
-        text = self.AssetLoader.large_font.render("You Won: $"+str(reward[stage])+"!", True, self.WHITE)
+        text = self.AssetLoader.large_font.render("You Won: $"+str(reward[Main.stage])+"!", True, self.WHITE)
         screen.blit(text, (250, 400))
 
         # Render and update the exit button

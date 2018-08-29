@@ -64,7 +64,6 @@ class Play(GameState):
                 self.question = False
             else:
                 answer = self.data[5]
-                print(answer)
 
                 # Draw and update buttons
                 self.question_button.rounded_rectangle(self.screen, (0, 0, 204), ""+self.data[0], self.WHITE, 0, 16, 16)
@@ -122,7 +121,9 @@ class Play(GameState):
 
             if self.continue_button.pressed:
                 self.finished = False
+                self.button_press = False
                 stage += 1
+                print(str(stage))
                 return
 
         if not self.finished:
@@ -137,7 +138,7 @@ class Play(GameState):
                         self.finished = True
         else:
             GSM.game_state = 3
-            GSM.play.__init__()
+            GSM.finish.__init__()
 
     def input(self):
         game_button = ButtonLibrary.GameButton(0, 0, 0, 0)
