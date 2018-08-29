@@ -29,7 +29,7 @@ class Play(GameState):
                                       self.continue_button))
 
     def render(self):
-        from Main import GSM, stage, screen
+        from Main import GSM, stage, screen, set_stage
 
         def new_question():
             with open('QuestionInfo.txt', 'r') as f:
@@ -111,7 +111,7 @@ class Play(GameState):
                         return
 
         def show_stage():
-            from Main import stage
+            from Main import stage, increase_stage
 
             # Draw Background
             self.screen.blit(self.AssetLoader.background, self.AssetLoader.background_rect)
@@ -120,7 +120,8 @@ class Play(GameState):
             self.screen.blit(self.AssetLoader.logo, (700, 100, 100, 300))
 
             # Draw reward table
-            reward_text = [100, 200, 300, 400, 500, 1000, 2000, 4000, 8000, 26000, 32000, 64000, 125000, 250000, 500000, 1000000]
+            reward_text = ["100", "200", "300", "400", "500", "1000", "2000", "4000", "8000", "26,000", "32,000",
+                           "64,000", "125,000", "250,000", "500,000", "1,000,000"]
 
             x = 100
             y = 650
@@ -128,19 +129,17 @@ class Play(GameState):
             height = 30
 
             for i in range(len(reward_text)):
-                print(i)
                 # Highlight current score
                 if int(i) == int(stage):
                     pygame.draw.rect(screen, (30, 144, 255), (x, y, width, height), 0)
                 elif int(i) == 5 or int(i) == 10 or int(i) == 15:
                     pygame.draw.rect(screen, (100, 144, 255), (x, y, width, height), 0)
-                    print("col")
                 else:
                     pygame.draw.rect(screen, self.BLUE, (x, y, width, height), 0)
 
                 # Draw text
-                text = self.AssetLoader.small_font.render(""+str(reward_text[i]), True, self.WHITE)
-                screen.blit(text, (x + width / 2 - (len(str(reward_text[i])) * 5), y))
+                text = self.AssetLoader.small_font.render(""+(reward_text[i]), True, self.WHITE)
+                screen.blit(text, (x + width / 2 - (len(reward_text[i]) * 5), y))
 
                 y -= 40
 
@@ -150,12 +149,11 @@ class Play(GameState):
             if self.continue_button.pressed:
                 self.finished = False
                 self.button_press = False
-                stage += 1
-                print(str(stage))
+                increase_stage()
                 return
 
         if not self.finished:
-            if stage > 16:
+            if stage >= 16:
                 self.finished = True
             else:
                 answer_question()
