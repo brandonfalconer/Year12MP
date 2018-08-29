@@ -20,6 +20,3 @@ class GameState:
 
     def input(self):
         pass
-
-    def dispose(self):
-        pass

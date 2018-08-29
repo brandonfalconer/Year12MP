@@ -10,7 +10,7 @@ class GameStateManager:
         self.menu = MenuState.Menu()
         self.rules = RulesState.Rules()
         self.play = PlayState.Play()
-        self.finish = FinishState.Finish()
+        self.finish = FinishState.Finish(False)
 
     def render(self):
         if self.game_state == 0:

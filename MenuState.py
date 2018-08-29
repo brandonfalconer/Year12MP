@@ -1,6 +1,7 @@
 import pygame
 import ButtonLibrary
 from GameState import GameState
+import sys
 
 
 class Menu(GameState):
@@ -15,7 +16,7 @@ class Menu(GameState):
         ButtonLibrary.buttons.extend((self.start_button, self.rules_button, self.exit_button))
 
     def render(self):
-        from Main import GSM, screen, done
+        from Main import GSM, screen
 
         # Draw Background
         screen.blit(self.AssetLoader.background, self.AssetLoader.background_rect)
@@ -34,8 +35,8 @@ class Menu(GameState):
             GSM.rules.__init__()
 
         if self.exit_button.pressed:
-            done = True
             pygame.quit()
+            sys.exit()
 
         # Drawing Text
         text = self.AssetLoader.large_font.render("Who wants to be a", True, (255, 255, 255))

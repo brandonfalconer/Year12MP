@@ -17,6 +17,7 @@ class GameButton:
 
         pygame.font.init()
         self.font = pygame.font.Font("Assets/Fonts/Tahoma.ttf", 36)
+        self.small_font = pygame.font.Font("Assets/Fonts/Tahoma.ttf", 30)
 
     def rounded_rectangle(self, screen, colour, text, t_colour, r_width, xr, yr):
 
@@ -58,8 +59,12 @@ class GameButton:
         screen.set_clip(clip)
 
         # Drawing Text
-        draw_text = self.font.render(text, True, t_colour)
-        screen.blit(draw_text, (self.x + 60 - len(text), (self.y + self.height / 2 - 25)))
+        if len(text) > 50:
+            draw_text = self.small_font.render(text, True, t_colour)
+            screen.blit(draw_text, (self.x + 30, (self.y + self.height / 2 - 25)))
+        else:
+            draw_text = self.font.render(text, True, t_colour)
+            screen.blit(draw_text, (self.x + (self.width / 2) - (len(text)*9), (self.y + self.height / 2 - 25)))
 
     def update_mouse(self):
         from Main import event
