@@ -1,10 +1,10 @@
 from GameState import GameState
 import ButtonLibrary
+import pygame
 import random
 
 
 class Play(GameState):
-
     def __init__(self):
         super().__init__()
 
@@ -23,19 +23,19 @@ class Play(GameState):
         self.answer_three_button = game_button(200, 550, 420, 80)
         self.answer_four_button = game_button(660, 550, 420, 80)
         self.back_button = game_button(64, 64, 128, 64)
-        self.continue_button = game_button(1000, 550, 156, 96)
+        self.continue_button = game_button(1100, 550, 156, 96)
         ButtonLibrary.buttons.extend((self.question_button, self.answer_one_button, self.answer_two_button,
                                       self.answer_three_button, self.answer_four_button, self.back_button,
                                       self.continue_button))
 
     def render(self):
-        from Main import GSM, stage
+        from Main import GSM, stage, screen
 
         def new_question():
             with open('QuestionInfo.txt', 'r') as f:
                 question_data = [line.strip() for line in f]
 
-            random_question = random.randint(0, 1) * 7
+            random_question = random.randint(0, (len(question_data) - 7) / 7) * 7
 
             current_question_data = [question_data[random_question], question_data[random_question + 1],
                                      question_data[random_question + 2], question_data[random_question + 3],
@@ -116,6 +116,34 @@ class Play(GameState):
             # Draw Background
             self.screen.blit(self.AssetLoader.background, self.AssetLoader.background_rect)
 
+            # Draw Millionaire Logo
+            self.screen.blit(self.AssetLoader.logo, (700, 100, 100, 300))
+
+            # Draw reward table
+            reward_text = [100, 200, 300, 400, 500, 1000, 2000, 4000, 8000, 26000, 32000, 64000, 125000, 250000, 500000, 1000000]
+
+            x = 100
+            y = 650
+            width = 500
+            height = 30
+
+            for i in range(len(reward_text)):
+                print(i)
+                # Highlight current score
+                if int(i) == int(stage):
+                    pygame.draw.rect(screen, (30, 144, 255), (x, y, width, height), 0)
+                elif int(i) == 5 or int(i) == 10 or int(i) == 15:
+                    pygame.draw.rect(screen, (100, 144, 255), (x, y, width, height), 0)
+                    print("col")
+                else:
+                    pygame.draw.rect(screen, self.BLUE, (x, y, width, height), 0)
+
+                # Draw text
+                text = self.AssetLoader.small_font.render(""+str(reward_text[i]), True, self.WHITE)
+                screen.blit(text, (x + width / 2 - (len(str(reward_text[i])) * 5), y))
+
+                y -= 40
+
             # Render and update the continue button
             self.continue_button.rounded_rectangle(self.screen, self.BLUE, "Continue", self.WHITE, 0, 8, 8)
 
@@ -133,10 +161,12 @@ class Play(GameState):
                 answer_question()
                 if self.button_press:
                     if self.answer:
+                        self.question = True
                         show_stage()
                     else:
                         self.finished = True
         else:
+            self.question = True
             GSM.game_state = 3
             GSM.finish.__init__()
 
