@@ -5,7 +5,7 @@ Applications
 Appendages
 3
 70
-The lossy file format which is used to compress an image for the internet is known as:
+The lossy file format used to compress an image is known as:
 Wav
 Gif
 Bmp
