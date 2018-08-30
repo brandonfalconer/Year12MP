@@ -25,6 +25,7 @@ class Finish(GameState):
 
         current_stage = stage
 
+        # Determine stage depending on safety barriers
         if not self.finish:
             if current_stage == 16:
                 new_stage = current_stage
@@ -37,6 +38,7 @@ class Finish(GameState):
         else:
             new_stage = current_stage
 
+        # Draw total earnings
         if new_stage == 0:
             text = self.AssetLoader.large_font.render("You Lost", True, self.WHITE)
             screen.blit(text, (450, 400))
@@ -59,5 +61,4 @@ class Finish(GameState):
             GSM.play.__init__()
 
     def input(self):
-        game_button = ButtonLibrary.GameButton(0, 0, 0, 0)
-        game_button.update_mouse()
+        GameState.input(self)

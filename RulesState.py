@@ -1,4 +1,3 @@
-import pygame
 from GameState import GameState
 import ButtonLibrary
 
@@ -17,6 +16,7 @@ class Rules(GameState):
         # Draw Background
         screen.blit(self.AssetLoader.background, self.AssetLoader.background_rect)
 
+        # Draw back button
         self.back_button.rounded_rectangle(screen, self.YELLOW, "Back", self.BLACK, 0, 32, 32)
 
         if self.back_button.pressed:
@@ -88,5 +88,4 @@ class Rules(GameState):
             screen.blit(text, (750, y))
 
     def input(self):
-        game_button = ButtonLibrary.GameButton(0, 0, 0, 0)
-        game_button.update_mouse()
+        GameState.input(self)

@@ -22,25 +22,18 @@ done = False
 clock = pygame.time.Clock()
 
 # -------- Main Program -----------
-# Objects
+# Objects / Variables
 GSM = GameStateManager.GameStateManager(0)
-
 stage = 0
 
-
+# Global Functions
 def increase_stage():
     global stage
     stage += 1
 
-
 def set_stage(value):
     global stage
     stage = value
-
-
-def get_stage():
-    global stage
-    return stage
 
 
 while not done:

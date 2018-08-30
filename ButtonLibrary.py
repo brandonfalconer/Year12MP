@@ -15,9 +15,11 @@ class GameButton:
         self.alpha = 150
         self.rect = pygame.Rect(x, y, width, height)
 
+        # Load font
         pygame.font.init()
-        self.font = pygame.font.Font("Assets/Fonts/Tahoma.ttf", 36)
-        self.small_font = pygame.font.Font("Assets/Fonts/Tahoma.ttf", 30)
+        font = "Tahoma"
+        self.font = pygame.font.Font("Assets/Fonts/"+font+".ttf", 36)
+        self.small_font = pygame.font.Font("Assets/Fonts/"+font+".ttf", 30)
 
     def rounded_rectangle(self, screen, colour, text, t_colour, r_width, xr, yr):
 
@@ -29,7 +31,7 @@ class GameButton:
         else:
             new_colour = colour
 
-        # Drawing a rounded rectangle button - source
+        # Drawing a rounded rectangle button - source (Alistair Buxton 2008)
         clip = screen.get_clip()
 
         # left and right
@@ -61,12 +63,13 @@ class GameButton:
         # Drawing Text
         if len(text) > 50:
             draw_text = self.small_font.render(text, True, t_colour)
-            screen.blit(draw_text, (self.x + 30, (self.y + self.height / 2 - 25)))
+            screen.blit(draw_text, (self.x + 30, (self.y + self.height / 2 - 22)))
         else:
             draw_text = self.font.render(text, True, t_colour)
-            screen.blit(draw_text, (self.x + (self.width / 2) - (len(text)*9), (self.y + self.height / 2 - 25)))
+            screen.blit(draw_text, (self.x + (self.width / 2) - (len(text) * 8 + 5), (self.y + self.height / 2 - 25)))
 
-    def update_mouse(self):
+    @staticmethod
+    def update_mouse():
         from Main import event
 
         # Highlight if the cursor is hovering over the button
@@ -80,6 +83,7 @@ class GameButton:
             else:
                 button.cursor = False
 
+        # Check if the button has been pressed
         if event.type == pygame.MOUSEBUTTONDOWN:
             if event.button == 1:
                 mouse_x = pygame.mouse.get_pos()[0]

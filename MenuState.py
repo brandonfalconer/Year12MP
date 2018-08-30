@@ -45,5 +45,4 @@ class Menu(GameState):
         screen.blit(text_newline, (435, 200))
 
     def input(self):
-        game_button = ButtonLibrary.GameButton(0, 0, 0, 0)
-        game_button.update_mouse()
+        GameState.input(self)

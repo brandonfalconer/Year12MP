@@ -1,4 +1,5 @@
 import AssetLoaderLibrary
+import ButtonLibrary
 
 
 class GameState:
@@ -19,4 +20,6 @@ class GameState:
         pass
 
     def input(self):
-        pass
+        # update game button input
+        game_button = ButtonLibrary.GameButton(0, 0, 0, 0)
+        game_button.update_mouse()

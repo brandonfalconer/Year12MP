@@ -20,6 +20,7 @@ class Play(GameState):
         self.phone_press = False
         self.audience = True
         self.del_question = True
+        self.question_list = []
         self.data = []
 
         self.draw_one = True
@@ -49,28 +50,27 @@ class Play(GameState):
     def render(self):
         from Main import GSM, stage, screen
 
+        # Create a new question form a file
         def new_question():
             data = 9
 
+            # Check to see if the question has been used before, otherwise create new question
             random_question = random.randint(0, (len(self.question_data) - data) / data) * data
+            while random_question in self.question_list:
+                random_question = random.randint(0, (len(self.question_data) - data) / data) * data
+            else:
+                self.question_list.append(random_question)
 
-            # INSERT FOR LOOP
-            current_question_data = [self.question_data[random_question], self.question_data[random_question + 1],
+            # Insert current question into an array, then return the array
+            current_question_data = []
+            for i in range(9):
+                current_question_data.append(self.question_data[random_question + i])
+            '''current_question_data = [self.question_data[random_question], self.question_data[random_question + 1],
                                      self.question_data[random_question + 2], self.question_data[random_question + 3],
                                      self.question_data[random_question + 4], self.question_data[random_question + 5],
                                      self.question_data[random_question + 6], self.question_data[random_question + 7],
                                      self.question_data[random_question + 8]]
-
-            int = -1
-            if self.del_question:
-                for i in range(len(current_question_data)):
-                    print(str(current_question_data))
-                    int += 1
-                    print(str(int))
-
-                    #del self.question_data[(random_question + int)]
-                self.del_question = False
-
+            '''
             self.question = False
             return current_question_data
 
@@ -115,8 +115,6 @@ class Play(GameState):
                                 self.draw_three = False
                             elif int(i) == 4:
                                 self.draw_four = False
-
-                        #ButtonLibrary.buttons.remove(self.fifty_lifeline_button)
                     else:
                         self.fifty_lifeline_button.rounded_rectangle(self.screen, self.BLUE, "50:50", self.WHITE, 0, 16, 16)
 
@@ -158,8 +156,7 @@ class Play(GameState):
                             x = 1
                             y = 1
 
-                        text = self.AssetLoader.small_font.render("("+phone_data+")", True, self.WHITE)
-                        screen.blit(text, (x + 275, y + 25))
+                        screen.blit(self.AssetLoader.phone, (x + 5, y + 13, 51, 51))
 
                 # Logic for 'as the studio audience' lifeline
                 if self.audience:
@@ -189,6 +186,7 @@ class Play(GameState):
                                 screen.blit(text, (self.answer_four_button.x + 350, self.answer_four_button.y + 25))
                             x += 1
 
+                # Check the answer buttons have been pressed, and if the answer is right/wrong
                 if self.answer_one_button.pressed:
                     self.button_press = True
                     if int(answer) == 1:
@@ -228,8 +226,8 @@ class Play(GameState):
                         return
 
         def show_stage():
-
             from Main import stage, increase_stage
+            self.question = False
 
             # Draw Background
             self.screen.blit(self.AssetLoader.background, self.AssetLoader.background_rect)
@@ -261,6 +259,22 @@ class Play(GameState):
 
                 y -= 40
 
+            # Draw text
+            if stage < 5:
+                t = 5 - stage
+            elif stage < 10:
+                t = 10 - stage
+            elif stage < 15:
+                t = 15 - stage
+            else:
+                t = 0
+
+            text = self.AssetLoader.medium_font.render("You are "+str(t)+" stages away", True, self.WHITE)
+            screen.blit(text, (700, 400))
+
+            text = self.AssetLoader.medium_font.render("from the next safety net.", True, self.WHITE)
+            screen.blit(text, (700, 450))
+
             # Render and update the continue button
             self.continue_button.rounded_rectangle(self.screen, self.BLUE, "Continue", self.WHITE, 0, 8, 8)
 
@@ -268,6 +282,7 @@ class Play(GameState):
                 self.finished = False
                 self.button_press = False
                 self.del_question = True
+                self.question = True
                 increase_stage()
                 return
 
@@ -279,6 +294,7 @@ class Play(GameState):
                 answer_question()
                 # If a question has been chosen
                 if self.button_press:
+                    # Answer is correct
                     if self.answer:
                         self.question = True
                         show_stage()
@@ -289,11 +305,11 @@ class Play(GameState):
                     else:
                         self.finished = True
         else:
+            # User has lost
             self.question = True
             GSM.game_state = 3
             GSM.finish.__init__(False)
 
     # Handle user input
     def input(self):
-        game_button = ButtonLibrary.GameButton(0, 0, 0, 0)
-        game_button.update_mouse()
+        GameState.input(self)
