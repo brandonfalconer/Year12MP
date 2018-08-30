@@ -25,3 +25,120 @@ Graphics
 3,4
 70%
 20%,65%,5%,10%
+The operating system is a:
+System Software
+Application Software
+Utility Software
+Malware
+1
+2,4
+50%
+40%,35%,20%,5%
+Files are organized in:
+Ram
+Cache
+Directories
+None of the above
+3
+1,2
+30%
+10%,30%,40%,20%
+A graphic artist would use:
+Programming Software
+Word Processing
+Antivirus Software
+Graphic Software
+4
+2,3
+90%
+40%,5%,5%,40%
+The process of carrying out a command is called:
+Fetching
+Controlling
+Storing
+Executing
+4
+2,3
+60%
+20%,30%,10%,40%
+What does the 'R' in RAM stand for?
+Rewrite
+Read
+Readable
+Random
+4
+3,1
+60%
+20%,30%,10%40%
+The formatting language used to create web pages:
+COBOL
+Perl
+Java
+HTML
+4
+1,3
+70%
+30%,20%,10%,40%
+A byte is a:
+Scar
+Single unit of megabyte
+Single Character
+All of the above
+2
+1,4
+60%
+5%,60%,20%15%
+Modem is short for what?
+Modulation Demolition
+Modular Demography
+Modulation Demodulator
+Modular Demagogue
+3
+1,2
+40%
+10%,40%,30%,20%
+The first electronic computer was built in the:
+1920's
+1940's
+1960's
+1970's
+2
+1,4
+45%
+20%,30%,40%,10%
+In spread sheets, formulas are stored in what:
+Rangers
+Functions
+Labels
+Cells
+4
+1,3
+30%
+10%,30%,30%,30%
+Which of the following is not an internet protocol:
+Telnet
+Gopher
+FTP
+Blogging
+4
+1,2
+90%
+5%,10%,5%,80%
+A WI-Fi network is an example of what?
+WLAN
+WAN
+WWW
+WAMP
+1
+3,4
+60%
+60%,20%,10%,10%
+What is another term for a bridging router?
+Brouter
+Gateway
+Switch
+Access Point
+1
+3,4
+75%
+40%,30%,20%10%

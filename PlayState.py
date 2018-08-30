@@ -14,10 +14,12 @@ class Play(GameState):
         self.finished = False
         self.button_press = False
         self.answer = False
+
         self.fifty = True
         self.phone = True
         self.phone_press = False
         self.audience = True
+        self.del_question = True
         self.data = []
 
         self.draw_one = True
@@ -41,24 +43,35 @@ class Play(GameState):
                                       self.continue_button, self.fifty_lifeline_button, self.friend_lifeline_button,
                                       self.audience_lifeline_button))
 
+        with open('QuestionInfo.txt', 'r') as f:
+            self.question_data = [line.strip() for line in f]
+
     def render(self):
         from Main import GSM, stage, screen
 
         def new_question():
             data = 9
 
-            with open('QuestionInfo.txt', 'r') as f:
-                question_data = [line.strip() for line in f]
-
-            random_question = random.randint(0, (len(question_data) - data) / data) * data
+            random_question = random.randint(0, (len(self.question_data) - data) / data) * data
 
             # INSERT FOR LOOP
-            current_question_data = [question_data[random_question], question_data[random_question + 1],
-                                     question_data[random_question + 2], question_data[random_question + 3],
-                                     question_data[random_question + 4], question_data[random_question + 5],
-                                     question_data[random_question + 6], question_data[random_question + 7],
-                                     question_data[random_question + 8]]
+            current_question_data = [self.question_data[random_question], self.question_data[random_question + 1],
+                                     self.question_data[random_question + 2], self.question_data[random_question + 3],
+                                     self.question_data[random_question + 4], self.question_data[random_question + 5],
+                                     self.question_data[random_question + 6], self.question_data[random_question + 7],
+                                     self.question_data[random_question + 8]]
 
+            int = -1
+            if self.del_question:
+                for i in range(len(current_question_data)):
+                    print(str(current_question_data))
+                    int += 1
+                    print(str(int))
+
+                    #del self.question_data[(random_question + int)]
+                self.del_question = False
+
+            self.question = False
             return current_question_data
 
         def answer_question():
@@ -215,6 +228,7 @@ class Play(GameState):
                         return
 
         def show_stage():
+
             from Main import stage, increase_stage
 
             # Draw Background
@@ -253,6 +267,7 @@ class Play(GameState):
             if self.continue_button.pressed:
                 self.finished = False
                 self.button_press = False
+                self.del_question = True
                 increase_stage()
                 return
 
