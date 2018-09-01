@@ -18,8 +18,10 @@ class GameButton:
         # Load font
         pygame.font.init()
         font = "Tahoma"
+        fancy_font = "Space Comics"
         self.font = pygame.font.Font("Assets/Fonts/"+font+".ttf", 36)
         self.small_font = pygame.font.Font("Assets/Fonts/"+font+".ttf", 30)
+        self.fancy_font = pygame.font.Font("Assets/Fonts/"+fancy_font+".ttf", 36)
 
     def rounded_rectangle(self, screen, colour, text, t_colour, r_width, xr, yr):
 
@@ -63,10 +65,14 @@ class GameButton:
         # Drawing Text
         if len(text) > 50:
             draw_text = self.small_font.render(text, True, t_colour)
-            screen.blit(draw_text, (self.x + 30, (self.y + self.height / 2 - 22)))
+            screen.blit(draw_text, (self.x + (self.width / 2) - (len(text) * 7), (self.y + self.height / 2 - 20)))
         else:
-            draw_text = self.font.render(text, True, t_colour)
-            screen.blit(draw_text, (self.x + (self.width / 2) - (len(text) * 8 + 5), (self.y + self.height / 2 - 25)))
+            if colour == (0, 0, 0):
+                draw_text = self.font.render(text, True, t_colour)
+                screen.blit(draw_text, (self.x + (self.width / 2) - (len(text) * 8 + 5), (self.y + self.height / 2 - 25)))
+            else:
+                draw_text = self.font.render(text, True, t_colour)
+                screen.blit(draw_text, (self.x + (self.width / 2) - (len(text) * 8 + 5), (self.y + self.height / 2 - 25)))
 
     @staticmethod
     def update_mouse():

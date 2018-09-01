@@ -1,6 +1,6 @@
 # --- Import Libraries
-import pygame
 import GameStateManager
+import pygame
 
 # --- Define global constants
 # Screen dimensions
@@ -25,6 +25,9 @@ clock = pygame.time.Clock()
 # Objects / Variables
 GSM = GameStateManager.GameStateManager(0)
 stage = 0
+
+pygame.mixer.music.load("Assets/Sound/Main Theme.mp3")
+pygame.mixer.music.play(-1)
 
 # Global Functions
 def increase_stage():

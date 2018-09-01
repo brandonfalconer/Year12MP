@@ -15,6 +15,9 @@ class Menu(GameState):
         self.exit_button = game_button(840, 400, 200, 100)
         ButtonLibrary.buttons.extend((self.start_button, self.rules_button, self.exit_button))
 
+        pygame.mixer.music.load("Assets/Sound/Main Theme.mp3")
+        pygame.mixer.music.play(-1)
+
     def render(self):
         from Main import GSM, screen
 
@@ -27,6 +30,7 @@ class Menu(GameState):
         self.exit_button.rounded_rectangle(screen, self.YELLOW, "Exit", self.BLACK,0, 32, 32)
 
         if self.start_button.pressed:
+            pygame.mixer.music.stop()
             GSM.game_state = 2
             GSM.play.__init__()
 

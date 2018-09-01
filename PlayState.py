@@ -9,6 +9,7 @@ class Play(GameState):
         super().__init__()
 
         from Main import screen
+        # Define variables
         self.screen = screen
         self.question = True
         self.finished = False
@@ -28,6 +29,7 @@ class Play(GameState):
         self.draw_three = True
         self.draw_four = True
 
+        # Set up game buttons
         game_button = ButtonLibrary.GameButton
         self.question_button = game_button(200, 350, 880, 80)
         self.answer_one_button = game_button(200, 450, 420, 80)
@@ -44,8 +46,13 @@ class Play(GameState):
                                       self.continue_button, self.fifty_lifeline_button, self.friend_lifeline_button,
                                       self.audience_lifeline_button))
 
+        # Open question file and load into a list
         with open('QuestionInfo.txt', 'r') as f:
             self.question_data = [line.strip() for line in f]
+
+        # Load music
+        pygame.mixer.music.load("Assets/Sound/Lets Play.mp3")
+        pygame.mixer.music.play(-1)
 
     def render(self):
         from Main import GSM, stage, screen
@@ -65,17 +72,11 @@ class Play(GameState):
             current_question_data = []
             for i in range(9):
                 current_question_data.append(self.question_data[random_question + i])
-            '''current_question_data = [self.question_data[random_question], self.question_data[random_question + 1],
-                                     self.question_data[random_question + 2], self.question_data[random_question + 3],
-                                     self.question_data[random_question + 4], self.question_data[random_question + 5],
-                                     self.question_data[random_question + 6], self.question_data[random_question + 7],
-                                     self.question_data[random_question + 8]]
-            '''
+
             self.question = False
             return current_question_data
 
         def answer_question():
-
             # Draw Background
             self.screen.blit(self.AssetLoader.background, self.AssetLoader.background_rect)
 
@@ -85,6 +86,7 @@ class Play(GameState):
             # Render and update the back button
             self.finish_button.rounded_rectangle(self.screen, self.BLUE, "Finish", self.WHITE, 0, 8, 8)
 
+            # Finished button has been pressed
             if self.finish_button.pressed:
                 self.question = True
                 GSM.game_state = 3
@@ -98,10 +100,11 @@ class Play(GameState):
                 self.audience_press = False
 
             else:
+                # Logic for 50:50 lifeline
                 answer = self.data[5]
 
-                # Logic for 50:50 lifeline
                 if self.fifty:
+                    # If lifeline button has been pressed
                     if self.fifty_lifeline_button.pressed:
                         self.fifty = False
                         fifty_data = str(self.data[6])
@@ -116,22 +119,27 @@ class Play(GameState):
                             elif int(i) == 4:
                                 self.draw_four = False
                     else:
-                        self.fifty_lifeline_button.rounded_rectangle(self.screen, self.BLUE, "50:50", self.WHITE, 0, 16, 16)
+                        self.fifty_lifeline_button.rounded_rectangle(self.screen, self.BLUE, "50:50", self.WHITE, 0, 16,
+                                                                     16)
 
                 # Draw and update buttons
                 self.question_button.rounded_rectangle(self.screen, (0, 0, 204), self.data[0], self.WHITE, 0, 16, 16)
                 if self.draw_one:
-                    self.answer_one_button.rounded_rectangle(self.screen, self.BLUE,  self.data[1], self.WHITE, 0, 16, 16)
+                    self.answer_one_button.rounded_rectangle(self.screen, self.BLUE, self.data[1], self.WHITE, 0, 16,
+                                                             16)
                 if self.draw_two:
-                    self.answer_two_button.rounded_rectangle(self.screen, self.BLUE,  self.data[2], self.WHITE, 0, 16, 16)
+                    self.answer_two_button.rounded_rectangle(self.screen, self.BLUE, self.data[2], self.WHITE, 0, 16,
+                                                             16)
                 if self.draw_three:
-                    self.answer_three_button.rounded_rectangle(self.screen, self.BLUE, self.data[3], self.WHITE, 0, 16, 16)
+                    self.answer_three_button.rounded_rectangle(self.screen, self.BLUE, self.data[3], self.WHITE, 0, 16,
+                                                               16)
                 if self.draw_four:
-                    self.answer_four_button.rounded_rectangle(self.screen, self.BLUE, self.data[4], self.WHITE, 0, 16, 16)
+                    self.answer_four_button.rounded_rectangle(self.screen, self.BLUE, self.data[4], self.WHITE, 0, 16,
+                                                              16)
 
                 # Logic for 'phone a friend' lifeline
-                phone_data = str(self.data[7])
                 if self.phone:
+                    # If phone lifeline has been pressed
                     if self.friend_lifeline_button.pressed:
                         self.phone = False
                         self.phone_press = True
@@ -219,6 +227,7 @@ class Play(GameState):
                 elif self.answer_four_button.pressed:
                     self.button_press = True
                     if int(answer) == 4:
+
                         self.answer = True
                         return
                     else:
@@ -269,7 +278,7 @@ class Play(GameState):
             else:
                 t = 0
 
-            text = self.AssetLoader.medium_font.render("You are "+str(t)+" stages away", True, self.WHITE)
+            text = self.AssetLoader.medium_font.render("You are " + str(t) + " stages away", True, self.WHITE)
             screen.blit(text, (700, 400))
 
             text = self.AssetLoader.medium_font.render("from the next safety net.", True, self.WHITE)
@@ -277,7 +286,6 @@ class Play(GameState):
 
             # Render and update the continue button
             self.continue_button.rounded_rectangle(self.screen, self.BLUE, "Continue", self.WHITE, 0, 8, 8)
-
             if self.continue_button.pressed:
                 self.finished = False
                 self.button_press = False
@@ -288,14 +296,18 @@ class Play(GameState):
 
         # If the user has not finished the game, continue, otherwise change to finish state
         if not self.finished:
+            # If the user has reached the final stage
             if stage >= 16:
                 self.finished = True
             else:
                 answer_question()
+
                 # If a question has been chosen
                 if self.button_press:
-                    # Answer is correct
                     if self.answer:
+                        # Answer is correct
+                        pygame.mixer.music.load("Assets/Sound/Correct Answer.mp3")
+                        pygame.mixer.music.play(0)
                         self.question = True
                         show_stage()
                         self.draw_one = True
@@ -303,6 +315,9 @@ class Play(GameState):
                         self.draw_three = True
                         self.draw_four = True
                     else:
+                        # Answer is incorrect
+                        pygame.mixer.music.load("Assets/Sound/Wrong Answer.mp3")
+                        pygame.mixer.music.play(0)
                         self.finished = True
         else:
             # User has lost
