@@ -56,6 +56,7 @@ class Play(GameState):
 
     def render(self):
         from Main import GSM, stage, screen
+        play_sound = True
 
         # Create a new question form a file
         def new_question():
@@ -287,6 +288,8 @@ class Play(GameState):
             # Render and update the continue button
             self.continue_button.rounded_rectangle(self.screen, self.BLUE, "Continue", self.WHITE, 0, 8, 8)
             if self.continue_button.pressed:
+                pygame.mixer.music.load("Assets/Sound/Correct Answer.mp3")
+                pygame.mixer.music.play(0)
                 self.finished = False
                 self.button_press = False
                 self.del_question = True
@@ -306,14 +309,13 @@ class Play(GameState):
                 if self.button_press:
                     if self.answer:
                         # Answer is correct
-                        pygame.mixer.music.load("Assets/Sound/Correct Answer.mp3")
-                        pygame.mixer.music.play(0)
                         self.question = True
                         show_stage()
                         self.draw_one = True
                         self.draw_two = True
                         self.draw_three = True
                         self.draw_four = True
+
                     else:
                         # Answer is incorrect
                         pygame.mixer.music.load("Assets/Sound/Wrong Answer.mp3")
@@ -324,6 +326,7 @@ class Play(GameState):
             self.question = True
             GSM.game_state = 3
             GSM.finish.__init__(False)
+            play_sound = True
 
     # Handle user input
     def input(self):
